@@ -44,6 +44,12 @@ function getLatLngFor(name, callback) {
   xhr.send();
 }
 
+function clearChildren(element) {
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
+}
+
 ///////////////////////////
 // Application functions //
 ///////////////////////////
@@ -56,7 +62,9 @@ document.getElementById('go').addEventListener('click', function() {
       getPhotoForWeatherAt(weather, location, function(url) {
         var img = document.createElement('img');
         img.src = url;
-        document.body.appendChild(img);
+        var container = document.getElementById("content");
+        clearChildren(container);
+        container.appendChild(img);
       });
     });
   });
@@ -69,7 +77,9 @@ navigator.geolocation.getCurrentPosition(function(pos) {
     getPhotoForWeatherAt(weather, location, function(url) {
       var img = document.createElement('img');
       img.src = url;
-      document.body.appendChild(img);
+      var container = document.getElementById("content");
+      clearChildren(container);
+      container.appendChild(img);
     });
   });
 });
