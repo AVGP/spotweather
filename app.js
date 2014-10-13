@@ -60,11 +60,7 @@ document.getElementById('go').addEventListener('click', function() {
   getLatLngFor(document.getElementById('location').value, function(location) {
     getWeatherForLocation(location, function(weather) {
       getPhotoForWeatherAt(weather, location, function(url) {
-        var img = document.createElement('img');
-        img.src = url;
-        var container = document.getElementById("content");
-        clearChildren(container);
-        container.appendChild(img);
+        document.body.style.background = 'url(' + url + ')';
       });
     });
   });
@@ -75,11 +71,7 @@ navigator.geolocation.getCurrentPosition(function(pos) {
   var location = {lat: pos.coords.latitude, lng: pos.coords.longitude};
   getWeatherForLocation(location, function(weather) {
     getPhotoForWeatherAt(weather, location, function(url) {
-      var img = document.createElement('img');
-      img.src = url;
-      var container = document.getElementById("content");
-      clearChildren(container);
-      container.appendChild(img);
+      document.body.style.background = 'url(' + url + ')';
     });
   });
 });
