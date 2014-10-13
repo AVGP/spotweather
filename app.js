@@ -64,7 +64,8 @@ document.getElementById('go').addEventListener('click', function() {
 
 // Automatically determine location by Geolocation lookup:
 navigator.geolocation.getCurrentPosition(function(pos) {
-  getWeatherForLocation({lat: pos.coords.latitude, lng: pos.coords.longitude}, function(weather) {
+  var location = {lat: pos.coords.latitude, lng: pos.coords.longitude};
+  getWeatherForLocation(location, function(weather) {
     getPhotoForWeatherAt(weather, location, function(url) {
       var img = document.createElement('img');
       img.src = url;
