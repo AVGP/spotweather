@@ -1,3 +1,8 @@
+//////////////////////////
+// Auxilliary functions //
+//////////////////////////
+
+// Fetch a random image from the Flickr Photo Search API that has been taken at the location and contains the weather as a tag:
 function getPhotoForWeatherAt(weather, location, callback) {
     var xhr = new XMLHttpRequest();
     xhr.onload = function() {
@@ -17,6 +22,7 @@ function getPhotoForWeatherAt(weather, location, callback) {
     xhr.send();
 }
 
+// Fetches the current weather information for a given lat/lng combination
 function getWeatherForLocation(location, callback) {
   var xhr = new XMLHttpRequest();
   xhr.onload = function() {
@@ -27,17 +33,7 @@ function getWeatherForLocation(location, callback) {
   xhr.send();
 }
 
-
-getLatLngFor("Zurich", function(location) {
-  getWeatherForLocation(location, function(weather) {
-    getPhotoForWeatherAt(weather, location, function(url) {
-      var img = document.createElement('img');
-      img.src = url;
-      document.body.appendChild(img);
-    });
-  });
-});
-
+// Takes an address (or city name) and turns it into a lat/lng tuple
 function getLatLngFor(name, callback) {
   var xhr = new XMLHttpRequest();
   xhr.onload = function() {
@@ -48,4 +44,31 @@ function getLatLngFor(name, callback) {
   xhr.send();
 }
 
-//navigator.geolocation.getCurrentPosition(show_map);
+///////////////////////////
+// Application functions //
+///////////////////////////
+
+
+// Manually displaying the weather + a photo using the form:
+document.getElementById('go').addEventListener('click', function() {
+  getLatLngFor(document.getElementById('location').value, function(location) {
+    getWeatherForLocation(location, function(weather) {
+      getPhotoForWeatherAt(weather, location, function(url) {
+        var img = document.createElement('img');
+        img.src = url;
+        document.body.appendChild(img);
+      });
+    });
+  });
+});
+
+// Automatically determine location by Geolocation lookup:
+navigator.geolocation.getCurrentPosition(function(pos) {
+  getWeatherForLocation({lat: pos.coords.latitude, lng: pos.coords.longitude}, function(weather) {
+    getPhotoForWeatherAt(weather, location, function(url) {
+      var img = document.createElement('img');
+      img.src = url;
+      document.body.appendChild(img);
+    });
+  });
+});
