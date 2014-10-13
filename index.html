@@ -16,17 +16,19 @@
             background-color: rgba(230,230,230,0.8);
         }
         
-        h1 { font-size: 4em; }
-        h2 { font-size: 2em; }
+        h1 { font-size: 4em; margin-bottom: 0; }
+        h2 { font-size: 2em; margin-top: 0; }
     </style>
 </head>
 <body>
+    <article id="content"></article>
+
     <form>
         <label for="location">Your location:</label>
         <input id="location" name="location" placeholder="London">
         <button type="button" id="go">What's the weather like?</button>
     </form>
-    <article id="content"></article>
+
     <template id="tpl">
         <h1><!-- Current temperature --></h1>
         <h2><!-- Min / max temperature --></h2>
