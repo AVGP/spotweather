@@ -59,13 +59,17 @@ function clearChildren(element) {
 document.getElementById('go').addEventListener('click', function() {
   getLatLngFor(document.getElementById('location').value, function(location) {
     getWeatherForLocation(location, function(weather) {
-      var weatherContent = document.cloneNode(document.querySelector('template').content, true);
-      weatherContent.querySelector('h1').textContent = weather.main.temp + ' °C';
-      weatherContent.querySelector('h2').textContent = weather.main.temp_min + " °C - " + weather.main.temp_max + " °C";
-      document.getElementById("content").appendChild(weatherContent);
       getPhotoForWeatherAt(weather.weather[0].main, location, function(url) {
         document.body.style.backgroundImage = 'url(' + url + ')';
       });
+
+      var mainWeather = weather.main, container = document.getElementById('content');
+      var weatherContent = document.importNode(document.querySelector('template').content, true);
+      weatherContent.querySelector('h1').textContent = mainWeather.temp + ' °C';
+      weatherContent.querySelector('h2').textContent = mainWeather.temp_min + " °C - " + mainWeather.temp_max + " °C";
+
+      clearChildren(container);
+      container.appendChild(weatherContent);
     });
   });
 });
@@ -77,5 +81,13 @@ navigator.geolocation.getCurrentPosition(function(pos) {
     getPhotoForWeatherAt(weather.weather[0].main, location, function(url) {
       document.body.style.backgroundImage = 'url(' + url + ')';
     });
+
+    var mainWeather = weather.main, container = document.getElementById('content');
+    var weatherContent = document.importNode(document.querySelector('template').content, true);
+    weatherContent.querySelector('h1').textContent = mainWeather.temp + ' °C';
+    weatherContent.querySelector('h2').textContent = mainWeather.temp_min + " °C - " + mainWeather.temp_max + " °C";
+
+    clearChildren(container);
+    container.appendChild(weatherContent);
   });
 });
