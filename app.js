@@ -60,7 +60,7 @@ document.getElementById('go').addEventListener('click', function() {
   getLatLngFor(document.getElementById('location').value, function(location) {
     getWeatherForLocation(location, function(weather) {
       getPhotoForWeatherAt(weather, location, function(url) {
-        document.body.style.background = 'url(' + url + ')';
+        document.body.style.backgroundImage = 'url(' + url + ')';
       });
     });
   });
@@ -71,7 +71,7 @@ navigator.geolocation.getCurrentPosition(function(pos) {
   var location = {lat: pos.coords.latitude, lng: pos.coords.longitude};
   getWeatherForLocation(location, function(weather) {
     getPhotoForWeatherAt(weather, location, function(url) {
-      document.body.style.background = 'url(' + url + ')';
+      document.body.style.backgroundImage = 'url(' + url + ')';
     });
   });
 });
