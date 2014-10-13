@@ -29,7 +29,7 @@ function getWeatherForLocation(location, callback) {
     var weather = JSON.parse(this.responseText);
     callback(weather);
   }
-  xhr.open('get', 'http://api.openweathermap.org/data/2.5/weather?unit=metric&lat=' + location.lat + '&lon=' + location.lng, true);
+  xhr.open('get', 'http://api.openweathermap.org/data/2.5/weather?units=metric&lat=' + location.lat + '&lon=' + location.lng, true);
   xhr.send();
 }
 
