@@ -66,7 +66,7 @@ document.getElementById('go').addEventListener('click', function() {
       var mainWeather = weather.main, container = document.getElementById('content');
       var weatherContent = document.importNode(document.querySelector('template').content, true);
       weatherContent.querySelector('h1').textContent = mainWeather.temp + ' °C';
-      weatherContent.querySelector('h2').textContent = weather.weather[0].main.description;
+      weatherContent.querySelector('h2').textContent = weather.weather[0].description;
 
       clearChildren(container);
       container.appendChild(weatherContent);
@@ -85,7 +85,7 @@ navigator.geolocation.getCurrentPosition(function(pos) {
     var mainWeather = weather.main, container = document.getElementById('content');
     var weatherContent = document.importNode(document.querySelector('template').content, true);
     weatherContent.querySelector('h1').textContent = mainWeather.temp + ' °C';
-    weatherContent.querySelector('h2').textContent = weather.weather[0].main.description;
+    weatherContent.querySelector('h2').textContent = weather.weather[0].description;
 
 
     clearChildren(container);
