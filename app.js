@@ -27,9 +27,9 @@ function getWeatherForLocation(location, callback) {
   var xhr = new XMLHttpRequest();
   xhr.onload = function() {
     var weather = JSON.parse(this.responseText);
-    callback(weather.weather[0].main);
+    callback(weather);
   }
-  xhr.open('get', 'http://api.openweathermap.org/data/2.5/weather?lat=' + location.lat + '&lon=' + location.lng, true);
+  xhr.open('get', 'http://api.openweathermap.org/data/2.5/weather?unit=metric&lat=' + location.lat + '&lon=' + location.lng, true);
   xhr.send();
 }
 
@@ -59,7 +59,11 @@ function clearChildren(element) {
 document.getElementById('go').addEventListener('click', function() {
   getLatLngFor(document.getElementById('location').value, function(location) {
     getWeatherForLocation(location, function(weather) {
-      getPhotoForWeatherAt(weather, location, function(url) {
+      var weatherContent = document.cloneNode(document.querySelector('template').content, true);
+      weatherContent.querySelector('h1').textContent = weather.main.temp + ' °C';
+      weatherContent.querySelector('h2').textContent = weather.main.temp_min + " °C - " + weather.main.temp_max + " °C";
+      document.getElementById("content").appendChild(weatherContent);
+      getPhotoForWeatherAt(weather.weather[0].main, location, function(url) {
         document.body.style.backgroundImage = 'url(' + url + ')';
       });
     });
@@ -70,7 +74,7 @@ document.getElementById('go').addEventListener('click', function() {
 navigator.geolocation.getCurrentPosition(function(pos) {
   var location = {lat: pos.coords.latitude, lng: pos.coords.longitude};
   getWeatherForLocation(location, function(weather) {
-    getPhotoForWeatherAt(weather, location, function(url) {
+    getPhotoForWeatherAt(weather.weather[0].main, location, function(url) {
       document.body.style.backgroundImage = 'url(' + url + ')';
     });
   });
