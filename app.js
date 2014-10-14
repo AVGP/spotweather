@@ -50,14 +50,11 @@ function getLocationNameByLatLng(lat, lng, callback) {
     var results = JSON.parse(this.responseText).results,
         i = results.length;
     while(i--) {
-      console.log("Checking", results[i]);
       if(results[i].types instanceof Array && results[i].types.indexOf('locality') > -1) {
-        console.log("CB1", results[i]);
-        callback(results[i].short_name);
+        callback(results[i].formatted_address);
         break;
       } else if(results[i].types == 'locality') {
-        console.log("CB1", results[i]);
-        callback(results[i].short_name);
+        callback(results[i].formatted_address);
         break;
       }
     }
