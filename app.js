@@ -6,25 +6,19 @@
 function getPhotoForWeatherAt(weather, location, callback) {
     var xhr = new XMLHttpRequest();
     xhr.onload = function() {
-      try {
-        var pics = JSON.parse(this.responseText).photos.photo;
-        var i=pics.length;
-
-        while(i--) {
-            var pic = pics[i];
-            pics[i].url = 'https://farm' + pic.farm + '.staticflickr.com/' + pic.server + '/' + pic.id + '_' + pic.secret + '.jpg';
-        }
-
-        var index = Math.floor(Math.random() * pics.length);
-        console.log('chosen ', index, pics[index]);
-        callback(pics[index].url);
-      } catch(e) {
-        // TODO: static images for the main weather conditions
-        //callback();
+      var pics = JSON.parse(this.responseText).photos.photo;
+      var i=pics.length;
+      
+      while(i--) {
+          var pic = pics[i];
+          pics[i].url = 'https://farm' + pic.farm + '.staticflickr.com/' + pic.server + '/' + pic.id + '_' + pic.secret + '.jpg';
       }
+    var index = Math.floor(Math.random() * pics.length);
+    console.log('chosen ', index, pics[index]);
+    callback(pics[index].url);
     }
     
-    xhr.open('get', 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=8436cce5ea8518073333ad2ca051fd60&tags=' + weather + '&sort=interestingness-asc&lat=' + location.lat + '&lon=' + location.lng + '&radius=5&radius_units=km&is_commons=&format=json&nojsoncallback=1', true);
+    xhr.open('get', 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=a6f892e3b6363359166bdfbd4c1c298d&tags=' + weather + '&sort=interestingness-asc&lat=' + location.lat + '&lon=' + location.lng + '&radius=5&radius_units=km&is_commons=&format=json&nojsoncallback=1', true);
     xhr.send();
 }
 
@@ -74,6 +68,8 @@ document.getElementById('go').addEventListener('click', function() {
       weatherContent.querySelector('h1').textContent = mainWeather.temp + ' °C';
       weatherContent.querySelector('h2').textContent = weather.weather[0].description;
 
+      document.head.querySelector('title').textContent = mainWeather.temp + ' °C, ' + weather.weather[0].description + ' in ' + document.getElementById('location').value; 
+
       clearChildren(container);
       container.appendChild(weatherContent);
     });
@@ -93,6 +89,7 @@ navigator.geolocation.getCurrentPosition(function(pos) {
     weatherContent.querySelector('h1').textContent = mainWeather.temp + ' °C';
     weatherContent.querySelector('h2').textContent = weather.weather[0].description;
 
+    document.head.querySelector('title').textContent = mainWeather.temp + ' °C, ' + weather.weather[0].description;
 
     clearChildren(container);
     container.appendChild(weatherContent);
