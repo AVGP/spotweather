@@ -6,19 +6,25 @@
 function getPhotoForWeatherAt(weather, location, callback) {
     var xhr = new XMLHttpRequest();
     xhr.onload = function() {
-      var pics = JSON.parse(this.responseText).photos.photo;
-      var i=pics.length;
-      
-      while(i--) {
-          var pic = pics[i];
-          pics[i].url = 'https://farm' + pic.farm + '.staticflickr.com/' + pic.server + '/' + pic.id + '_' + pic.secret + '.jpg';
+      try {
+        var pics = JSON.parse(this.responseText).photos.photo;
+        var i=pics.length;
+
+        while(i--) {
+            var pic = pics[i];
+            pics[i].url = 'https://farm' + pic.farm + '.staticflickr.com/' + pic.server + '/' + pic.id + '_' + pic.secret + '.jpg';
+        }
+
+        var index = Math.floor(Math.random() * pics.length);
+        console.log('chosen ', index, pics[index]);
+        callback(pics[index].url);
+      } catch(e) {
+        // TODO: static images for the main weather conditions
+        //callback();
       }
-    var index = Math.floor(Math.random() * pics.length);
-    console.log('chosen ', index, pics[index]);
-    callback(pics[index].url);
     }
     
-    xhr.open('get', 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=a6f892e3b6363359166bdfbd4c1c298d&tags=' + weather + '&sort=interestingness-asc&lat=' + location.lat + '&lon=' + location.lng + '&radius=5&radius_units=km&is_commons=&format=json&nojsoncallback=1', true);
+    xhr.open('get', 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=8436cce5ea8518073333ad2ca051fd60&tags=' + weather + '&sort=interestingness-asc&lat=' + location.lat + '&lon=' + location.lng + '&radius=5&radius_units=km&is_commons=&format=json&nojsoncallback=1', true);
     xhr.send();
 }
 
