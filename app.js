@@ -163,7 +163,7 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 
 document.getElementById('settings').addEventListener('click', function() {
   Modal.open({
-    ajaxContent: '/settings.html',
+    ajaxContent: 'settings.html',
     width: '50%', // Can be set to px, em, %, or whatever else is out there.
     height: '50%',
     openCallback: function() {
