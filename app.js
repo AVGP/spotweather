@@ -124,14 +124,17 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 
     getForecastForLocation(location, function(forecasts) {
       clearChildren(forecastContainer);
-      var i = forecasts.length,
-          fcContainer = document.importNode(document.querySelector('template#forecast_entry').content, true);
+      var i = forecasts.length;
 
       while(i--) {
         var date = new Date(parseInt(forecasts[i].dt, 10) * 1000);
+        if(new Date().toLocaleDateString() != date.toLocaleDateString()) continue;
+
+        var fcContainer = document.importNode(document.querySelector('template#forecast_entry').content, true);
+
         fcContainer.querySelector('.forecast_time').textContent = date.toLocaleTimeString().slice(0, -3);
         fcContainer.querySelector('.forecast_img img').src = 'http://openweathermap.org/img/w/' + forecasts[i].weather[0].icon + '.png';
-        fcContainer.querySelector('.forecast_temp').textContent = forecasts[i].main.temp;
+        fcContainer.querySelector('.forecast_temp').textContent = forecasts[i].main.temp + ' °C';
         fcContainer.querySelector('.forecast_text').textContent = forecasts[i].weather[0].description;
         container.appendChild(fcContainer);
       }
