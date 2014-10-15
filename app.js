@@ -39,7 +39,7 @@ function getForecastForLocation(location, callback) {
     var weather = JSON.parse(this.responseText);
     callback(weather.list);
   }
-  xhr.open('get', 'http://api.openweathermap.org/data/2.5/forecase?units=metric&lat=' + location.lat + '&lon=' + location.lng, true);
+  xhr.open('get', 'http://api.openweathermap.org/data/2.5/forecast?units=metric&lat=' + location.lat + '&lon=' + location.lng, true);
   xhr.send();
 }
 
