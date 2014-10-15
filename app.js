@@ -33,6 +33,17 @@ function getWeatherForLocation(location, callback) {
   xhr.send();
 }
 
+function getForecastForLocation(location, callback) {
+  var xhr = new XMLHttpRequest();
+  xhr.onload = function() {
+    var weather = JSON.parse(this.responseText);
+    callback(weather.list);
+  }
+  xhr.open('get', 'http://api.openweathermap.org/data/2.5/forecase?units=metric&lat=' + location.lat + '&lon=' + location.lng, true);
+  xhr.send();
+}
+
+
 // Takes an address (or city name) and turns it into a lat/lng tuple
 function getLatLngFor(name, callback) {
   var xhr = new XMLHttpRequest();
@@ -104,9 +115,24 @@ navigator.geolocation.getCurrentPosition(function(pos) {
     });
 
     var mainWeather = weather.main, container = document.getElementById('content');
-    var weatherContent = document.importNode(document.querySelector('template').content, true);
+    var weatherContent = document.importNode(document.querySelector('template#tpl').content, true);
     weatherContent.querySelector('h1').textContent = mainWeather.temp + ' °C';
     weatherContent.querySelector('h2').textContent = weather.weather[0].description;
+    var forecastContainer = weatherContent.querySelector(".forecast");
+
+    getForecastForLocation(location, function(forecasts) {
+      clearChildren(forecastContainer);
+      var i = forecasts.length,
+          container = document.importNode(document.querySelector('template#forecast_entry').content, true);
+
+      while(i--) {
+        var date = new Date(parseInt(forecasts[i].dt, 10) * 1000);
+        container.querySelector('.forecast_time').textContent = date.getLocaleTimeString().slice(0, -3);
+        container.querySelector('.forecast_img img').src = 'http://openweathermap.org/img/w/' + forecasts[i].weather[0].icon + '.png';
+        container.querySelector('.forecast_temp').textContent = forecasts[i].main.temp;
+        container.querySelector('.forecast_text').textContent = forecasts[i].weather[0].description;
+      }
+    });
 
     try {
       getLocationNameByLatLng(location.lat, location.lng, function(locationName) {
