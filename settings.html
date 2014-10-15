@@ -5,11 +5,14 @@
     <input id="set_fallback_location">
   </p>
   <p>
-    <label for="set_units">Units</label>
+    <label for="set_units">Metric (°C)</label>
     <input name="set_units" type="radio" value="metric">
 
-    <label for="set_units">Units</label>
+    <label for="set_units">Imperial (°F)</label>
     <input name="set_units" type="radio" value="imperial">
   </p>
-  
 </form>
+<script>
+  document.forms.settings.set_units.value = settings.units;
+  document.forms.settings.set_fallback_location.value = settings.fallback_location;
+</script>

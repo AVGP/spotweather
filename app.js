@@ -166,10 +166,6 @@ document.getElementById('settings').addEventListener('click', function() {
     ajaxContent: 'settings.html',
     width: '50%', // Can be set to px, em, %, or whatever else is out there.
     height: '50%',
-    openCallback: function() {
-      document.forms.settings.set_units.value = settings.units;
-      document.forms.settings.set_fallback_location.value = settings.fallback_location;
-    },
     closeCallback: function() {
       settings.units = document.forms.settings.set_units.value;
       settings.fallback_location = document.forms.settings.set_fallback_location.value;
