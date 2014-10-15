@@ -124,9 +124,9 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 
     getForecastForLocation(location, function(forecasts) {
       clearChildren(forecastContainer);
-      var i = forecasts.length;
+      var len = forecasts.length;
 
-      while(i--) {
+      for(var i=0, i<len;i++) {
         var date = new Date(parseInt(forecasts[i].dt, 10) * 1000);
         if(new Date().toLocaleDateString() != date.toLocaleDateString()) continue;
 
