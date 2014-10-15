@@ -164,8 +164,8 @@ if(location.search.length < 2) {
     displayWeather(location);
   });
 } else {
-  var location = location.search.substring(location.search.indexOf('=')+1);
-  displayWeather(location);
+  var loc = location.search.substring(location.search.indexOf('=')+1);
+  displayWeather(loc);
 }
 
 document.getElementById('settings').addEventListener('click', function() {
