@@ -93,6 +93,18 @@ function clearChildren(element) {
   }
 }
 
+function loadSettings() {
+  document.forms.settings.set_units.value = window.settings.units;
+  document.forms.settings.set_fallback_location.value = window.settings.fallback_location;
+}
+
+function saveSettings() {
+  window.settings.units = document.forms.settings.set_units.value;
+  window.settings.fallback_location = document.forms.settings.set_fallback_location.value;
+  localStorage.setItem('settings', JSON.stringify(settings));
+  Modal.close();
+}
+
 ///////////////////////////
 // Application functions //
 ///////////////////////////
@@ -146,10 +158,15 @@ document.getElementById('go').addEventListener('click', function() {
 });
 
 // Automatically determine location by Geolocation lookup:
-navigator.geolocation.getCurrentPosition(function(pos) {
-  var location = {lat: pos.coords.latitude, lng: pos.coords.longitude};
+if(location.search.length < 2) {
+  navigator.geolocation.getCurrentPosition(function(pos) {
+    var location = {lat: pos.coords.latitude, lng: pos.coords.longitude};
+    displayWeather(location);
+  });
+} else {
+  var location = location.search.substring(location.search.indexOf('=')+1);
   displayWeather(location);
-});
+}
 
 document.getElementById('settings').addEventListener('click', function() {
   Modal.open({
@@ -162,16 +179,3 @@ document.getElementById('settings').addEventListener('click', function() {
   });
   loadSettings();
 });
-
-
-function loadSettings() {
-  document.forms.settings.set_units.value = window.settings.units;
-  document.forms.settings.set_fallback_location.value = window.settings.fallback_location;
-}
-
-function saveSettings() {
-  window.settings.units = document.forms.settings.set_units.value;
-  window.settings.fallback_location = document.forms.settings.set_fallback_location.value;
-  localStorage.setItem('settings', JSON.stringify(settings));
-  Modal.close();
-}
