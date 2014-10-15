@@ -105,7 +105,7 @@ function displayWeather(location) {
 
     var mainWeather = weather.main, container = document.getElementById('content');
     var weatherContent = document.importNode(document.querySelector('template#tpl').content, true);
-    weatherContent.querySelector('h1').textContent = mainWeather.temp + ' °C';
+    weatherContent.querySelector('h1').textContent = mainWeather.temp + (settings.units === 'metric' ? ' °C' : ' °F');
     weatherContent.querySelector('h2').textContent = weather.weather[0].description;
     var forecastContainer = weatherContent.querySelector(".forecast");
 
