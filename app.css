@@ -33,13 +33,13 @@ nav {
     font-size: 1em;
     padding: 0.5em;
     bottom: 0;
-    right: 0;
+    left: 0;
     background-color: rgba(64, 64, 64, 0.8);
     color: rgb(230, 230, 230);
     text-align: left;
 }
 
-nav button {
+nav button, nav a, nav a:visited {
     background: transparent;
     border: none;
     color: rgb(230, 230, 230);
