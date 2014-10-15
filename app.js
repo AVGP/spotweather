@@ -169,7 +169,7 @@ document.getElementById('settings').addEventListener('click', function() {
     closeCallback: function() {
       window.settings.units = document.forms.settings.set_units.value;
       window.settings.fallback_location = document.forms.settings.set_fallback_location.value;
-      window.localStorage.setItem('settings', JSON.stringify(settings));
+      localStorage.setItem('settings', JSON.stringify(settings));
     }
   });
 });
