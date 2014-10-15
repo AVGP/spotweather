@@ -164,8 +164,7 @@ if(location.search.length < 2) {
     displayWeather(location);
   });
 } else {
-  var loc = location.search.substring(location.search.indexOf('=')+1);
-  displayWeather(loc);
+  getLatLngFor(location.search.substring(location.search.indexOf('=')+1), displayWeather);
 }
 
 document.getElementById('settings').addEventListener('click', function() {
