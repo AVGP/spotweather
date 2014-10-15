@@ -11,7 +11,7 @@ function getPhotoForWeatherAt(weather, location, callback) {
       
       while(i--) {
           var pic = pics[i];
-          pics[i].url = 'https://farm' + pic.farm + '.staticflickr.com/' + pic.server + '/' + pic.id + '_' + pic.secret + '.jpg';
+          pics[i].url = 'https://farm' + pic.farm + '.staticflickr.com/' + pic.server + '/' + pic.id + '_' + pic.secret + '_b.jpg';
       }
     var index = Math.floor(Math.random() * pics.length);
     console.log('chosen ', index, pics[index]);
