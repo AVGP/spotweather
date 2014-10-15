@@ -168,16 +168,22 @@ document.getElementById('settings').addEventListener('click', function() {
     ajaxContent: 'settings.html',
     width: '50%', // Can be set to px, em, %, or whatever else is out there.
     height: '50%',
-    closeCallback: function() {
-      window.settings.units = document.forms.settings.set_units.value;
-      window.settings.fallback_location = document.forms.settings.set_fallback_location.value;
-      localStorage.setItem('settings', JSON.stringify(settings));
+    openCallback: function() {
+      loadSettings();
     }
   });
+  loadSettings();
 });
+
+
+function loadSettings() {
+  document.forms.settings.set_units.value = window.settings.units;
+  document.forms.settings.set_fallback_location.value = window.settings.fallback_location;
+}
 
 function saveSettings() {
   window.settings.units = document.forms.settings.set_units.value;
   window.settings.fallback_location = document.forms.settings.set_fallback_location.value;
   localStorage.setItem('settings', JSON.stringify(settings));
+  Modal.close();
 }
