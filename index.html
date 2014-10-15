@@ -32,9 +32,25 @@
             display: inline-block;
             background-color: rgba(230, 230, 230, 0.8);
         }
+
+        nav {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+
+        @import url(http://weloveiconfonts.com/api/?family=fontawesome);
+
+        /* fontawesome */
+        [class*="fontawesome-"]:before {
+          font-family: 'FontAwesome', sans-serif;
+        }
     </style>
 </head>
 <body>
+    <nav>
+        <a href=""><span class="fontawesome-cog">Settings</span></a>
+    </nav>
     <article id="content"></article>
 
     <form>
