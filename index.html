@@ -6,50 +6,14 @@
     <meta name="mobile-web-app-capable" content="true">
     <title>Weather at your location</title>
     <link href='http://fonts.googleapis.com/css?family=Fjalla+One:400' rel='stylesheet' type='text/css'>
-    <style>
-        @import url("http://weloveiconfonts.com/api/?family=fontawesome");
-
-        html, body {
-            height: 100%;
-            background-size: cover;
-            font-family: 'Fjalla One', Helvetica, Arial, sans-serif;
-        }
-        
-        h1, h2 {
-            text-align: center;
-            background-color: rgba(230,230,230,0.8);
-        }
-        
-        h1 { font-size: 4em; margin-bottom: 0; }
-        h2 { font-size: 2em; margin-top: 0; }
-        
-        body {
-            text-align: center;
-        }
-        
-        .forecast_entry {
-            width: 150px;
-            margin: 0.5em 0.25em 0 0;
-            text-align: center;
-            display: inline-block;
-            background-color: rgba(230, 230, 230, 0.8);
-        }
-
-        nav {
-            position: absolute;
-            top: 0;
-            right: 0;
-        }
-
-        /* fontawesome */
-        [class*="fontawesome-"]:before {
-          font-family: 'FontAwesome', sans-serif;
-        }
-    </style>
+    <link href="app.css" rel="stylesheet">
+    <link href="jsmodal-light.css" rel="stylesheet">
 </head>
 <body>
     <nav>
-        <a href=""><span class="fontawesome-cog">Settings</span></a>
+        <button href=""><span class="fontawesome-cog">Settings</span></button>
+        &nbsp;|&nbsp;
+        &copy; 2014 <a href="http://geekonaut.de">Geekonaut</a>
     </nav>
     <article id="content"></article>
 
@@ -72,6 +36,8 @@
             <div class="forecast_time"></div>
         </div>
     </template>
+
+    <script src="jsmodal-1.0d.min.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
