@@ -10,10 +10,14 @@
 
     <label for="set_units">Imperial (°F)</label>
     <input name="set_units" type="radio" value="imperial">
+    
+    <button type="button" onclick="saveSettings()">Save</button>
   </p>
 </form>
 <script>
-console.log("SETTINGS", window.settings);
-  document.forms.settings.set_units.value = settings.units;
-  document.forms.settings.set_fallback_location.value = settings.fallback_location;
+    function saveSettings() {
+      window.settings.units = document.forms.settings.set_units.value;
+      window.settings.fallback_location = document.forms.settings.set_fallback_location.value;
+      localStorage.setItem('settings', JSON.stringify(settings));
+    }
 </script>
