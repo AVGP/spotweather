@@ -1,3 +1,14 @@
+// Load settings...
+try {
+  var settings = JSON.parse(localStorage.getItem('settings'));
+} catch(e) {
+  var settings = {
+    fallback_location: '',
+    units: 'metric'
+  };
+}
+
+
 //////////////////////////
 // Auxilliary functions //
 //////////////////////////
@@ -147,5 +158,22 @@ navigator.geolocation.getCurrentPosition(function(pos) {
       document.head.querySelector('title').textContent = mainWeather.temp + ' °C, ' + weather.weather[0].description;
     }
     container.appendChild(weatherContent);
+  });
+});
+
+document.getElementById('settings').addEventListener('click', function() {
+  Modal.open({
+    ajaxContent: '/settings.html',
+    width: '50%', // Can be set to px, em, %, or whatever else is out there.
+    height: '50%',
+    openCallback: function() {
+      document.forms.settings.set_units.value = settings.units;
+      document.forms.settings.set_fallback_location.value = settings.fallback_location;
+    },
+    closeCallback: function() {
+      settings.units = document.forms.settings.set_units.value;
+      settings.fallback_location = document.forms.settings.set_fallback_location.value;
+      localStorage.setItem('settings', JSON.stringify(settings));
+    }
   });
 });
