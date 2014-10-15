@@ -42,7 +42,7 @@ function getWeatherForLocation(location, callback) {
     var weather = JSON.parse(this.responseText);
     callback(weather);
   }
-  xhr.open('get', 'http://api.openweathermap.org/data/2.5/weather?units=metric&lat=' + location.lat + '&lon=' + location.lng, true);
+  xhr.open('get', 'http://api.openweathermap.org/data/2.5/weather?units=' + window.settings.units + '&lat=' + location.lat + '&lon=' + location.lng, true);
   xhr.send();
 }
 
@@ -52,7 +52,7 @@ function getForecastForLocation(location, callback) {
     var weather = JSON.parse(this.responseText);
     callback(weather.list);
   }
-  xhr.open('get', 'http://api.openweathermap.org/data/2.5/forecast?units=metric&lat=' + location.lat + '&lon=' + location.lng, true);
+  xhr.open('get', 'http://api.openweathermap.org/data/2.5/forecast?units=' + window.settings.units + '&lat=' + location.lat + '&lon=' + location.lng, true);
   xhr.send();
 }
 
@@ -97,31 +97,7 @@ function clearChildren(element) {
 // Application functions //
 ///////////////////////////
 
-
-// Manually displaying the weather + a photo using the form:
-document.getElementById('go').addEventListener('click', function() {
-  getLatLngFor(document.getElementById('location').value, function(location) {
-    getWeatherForLocation(location, function(weather) {
-      getPhotoForWeatherAt(weather.weather[0].main, location, function(url) {
-        document.body.style.backgroundImage = 'url(' + url + ')';
-      });
-
-      var mainWeather = weather.main, container = document.getElementById('content');
-      var weatherContent = document.importNode(document.querySelector('template').content, true);
-      weatherContent.querySelector('h1').textContent = mainWeather.temp + ' °C';
-      weatherContent.querySelector('h2').textContent = weather.weather[0].description;
-
-      document.head.querySelector('title').textContent = mainWeather.temp + ' °C, ' + weather.weather[0].description + ' in ' + document.getElementById('location').value; 
-
-      clearChildren(container);
-      container.appendChild(weatherContent);
-    });
-  });
-});
-
-// Automatically determine location by Geolocation lookup:
-navigator.geolocation.getCurrentPosition(function(pos) {
-  var location = {lat: pos.coords.latitude, lng: pos.coords.longitude};
+function displayWeather(location) {
   getWeatherForLocation(location, function(weather) {
     getPhotoForWeatherAt(weather.weather[0].main, location, function(url) {
       document.body.style.backgroundImage = 'url(' + url + ')';
@@ -146,7 +122,7 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 
         fcContainer.querySelector('.forecast_time').textContent = date.toLocaleTimeString().slice(0, -3);
         fcContainer.querySelector('.forecast_img img').src = 'http://openweathermap.org/img/w/' + forecasts[i].weather[0].icon + '.png';
-        fcContainer.querySelector('.forecast_temp').textContent = forecasts[i].main.temp + ' °C';
+        fcContainer.querySelector('.forecast_temp').textContent = forecasts[i].main.temp + (settings.units === 'metric' ? ' °C' : ' °F');
         fcContainer.querySelector('.forecast_text').textContent = forecasts[i].weather[0].description;
         container.appendChild(fcContainer);
       }
@@ -154,13 +130,25 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 
     try {
       getLocationNameByLatLng(location.lat, location.lng, function(locationName) {
-        document.head.querySelector('title').textContent = mainWeather.temp + ' °C, ' + weather.weather[0].description + ' in ' + locationName;
+        document.head.querySelector('title').textContent = mainWeather.temp + ' ' + (settings.units === 'metric' ? '°C' : '°F') + ', ' + weather.weather[0].description + ' in ' + locationName;
       });
     } catch(e) {
-      document.head.querySelector('title').textContent = mainWeather.temp + ' °C, ' + weather.weather[0].description;
+      document.head.querySelector('title').textContent = mainWeather.temp + ' ' + (settings.units === 'metric' ? '°C' : '°F') + ', ' + weather.weather[0].description;
     }
     container.appendChild(weatherContent);
-  });
+  });  
+}
+
+
+// Manually displaying the weather + a photo using the form:
+document.getElementById('go').addEventListener('click', function() {
+  getLatLngFor(document.getElementById('location').value, displayWeather);
+});
+
+// Automatically determine location by Geolocation lookup:
+navigator.geolocation.getCurrentPosition(function(pos) {
+  var location = {lat: pos.coords.latitude, lng: pos.coords.longitude};
+  displayWeather(location);
 });
 
 document.getElementById('settings').addEventListener('click', function() {
