@@ -1,11 +1,13 @@
 // Load settings...
-try {
-  window.settings = JSON.parse(localStorage.getItem('settings'));
-} catch(e) {
-  window.settings = {
+var defaultSettings = {
     fallback_location: '',
     units: 'metric'
   };
+
+try {
+  window.settings = JSON.parse(localStorage.getItem('settings')) || defaultSettings;
+} catch(e) {
+  window.settings = defaultSettings;
 }
 
 
