@@ -1,8 +1,8 @@
 // Load settings...
 try {
-  var settings = JSON.parse(localStorage.getItem('settings'));
+  window.settings = JSON.parse(localStorage.getItem('settings'));
 } catch(e) {
-  var settings = {
+  window.settings = {
     fallback_location: '',
     units: 'metric'
   };
@@ -167,9 +167,9 @@ document.getElementById('settings').addEventListener('click', function() {
     width: '50%', // Can be set to px, em, %, or whatever else is out there.
     height: '50%',
     closeCallback: function() {
-      settings.units = document.forms.settings.set_units.value;
-      settings.fallback_location = document.forms.settings.set_fallback_location.value;
-      localStorage.setItem('settings', JSON.stringify(settings));
+      window.settings.units = document.forms.settings.set_units.value;
+      window.settings.fallback_location = document.forms.settings.set_fallback_location.value;
+      window.localStorage.setItem('settings', JSON.stringify(settings));
     }
   });
 });
