@@ -127,7 +127,7 @@ navigator.geolocation.getCurrentPosition(function(pos) {
 
       while(i--) {
         var date = new Date(parseInt(forecasts[i].dt, 10) * 1000);
-        container.querySelector('.forecast_time').textContent = date.getLocaleTimeString().slice(0, -3);
+        container.querySelector('.forecast_time').textContent = date.toLocaleTimeString().slice(0, -3);
         container.querySelector('.forecast_img img').src = 'http://openweathermap.org/img/w/' + forecasts[i].weather[0].icon + '.png';
         container.querySelector('.forecast_temp').textContent = forecasts[i].main.temp;
         container.querySelector('.forecast_text').textContent = forecasts[i].weather[0].description;
