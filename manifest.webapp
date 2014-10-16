@@ -3,7 +3,7 @@
   "description": "Your local weather with nice images from your location",
   "launch_path": "/spotweather/index.html",
   "icons": {
-    "128": "images/icon128.png"
+    "128": "/spotweather/images/icon128.png"
   },
   "developer": {
     "name": "Geekonaut",
