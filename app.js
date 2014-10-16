@@ -150,6 +150,9 @@ function displayWeather(location) {
   });  
 }
 
+if(window.settings.fallback_location != '') {
+  getLatLngFor(window.settings.fallback_location, displayWeather);
+}
 
 // Manually displaying the weather + a photo using the form:
 document.getElementById('go').addEventListener('click', function() {
