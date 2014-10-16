@@ -10,7 +10,6 @@ try {
   window.settings = defaultSettings;
 }
 
-
 //////////////////////////
 // Auxilliary functions //
 //////////////////////////

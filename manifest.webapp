@@ -1,7 +1,7 @@
 {
   "name": "SpotWeather",
   "description": "Your local weather with nice images from your location",
-  "launch_path": "/index.html",
+  "launch_path": "/spotweather/index.html",
   "icons": {
     "128": "/images/icon128.png"
   },
