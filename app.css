@@ -17,6 +17,7 @@ h2 { font-size: 2em; margin-top: 0; }
 body {
     text-align: center;
     margin-bottom: 2.2em;
+    background-attachment: fixed;
 }
 
 .forecast_entry {
