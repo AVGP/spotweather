@@ -116,7 +116,7 @@ function displayWeather(location) {
 
     var mainWeather = weather.main, container = document.getElementById('content');
     var weatherContent = document.importNode(document.querySelector('template#tpl').content, true);
-    weatherContent.querySelector('h1').textContent = mainWeather.temp + (settings.units === 'metric' ? ' °C' : ' °F');
+    weatherContent.querySelector('h1').textContent = mainWeather.temp.toFixed(1) + (settings.units === 'metric' ? ' °C' : ' °F');
     weatherContent.querySelector('h2').textContent = weather.weather[0].description;
     var forecastContainer = weatherContent.querySelector(".forecast");
 
@@ -133,7 +133,7 @@ function displayWeather(location) {
 
         fcContainer.querySelector('.forecast_time').textContent = date.toLocaleTimeString().slice(0, -3);
         fcContainer.querySelector('.forecast_img img').src = 'http://openweathermap.org/img/w/' + forecasts[i].weather[0].icon + '.png';
-        fcContainer.querySelector('.forecast_temp').textContent = forecasts[i].main.temp + (settings.units === 'metric' ? ' °C' : ' °F');
+        fcContainer.querySelector('.forecast_temp').textContent = forecasts[i].main.temp.toFixed(1) + (settings.units === 'metric' ? ' °C' : ' °F');
         fcContainer.querySelector('.forecast_text').textContent = forecasts[i].weather[0].description;
         container.appendChild(fcContainer);
       }
