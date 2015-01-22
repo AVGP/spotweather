@@ -141,10 +141,10 @@ function displayWeather(location) {
 
     try {
       getLocationNameByLatLng(location.lat, location.lng, function(locationName) {
-        document.head.querySelector('title').textContent = mainWeather.temp + ' ' + (settings.units === 'metric' ? '°C' : '°F') + ', ' + weather.weather[0].description + ' in ' + locationName;
+        document.head.querySelector('title').textContent = mainWeather.temp.toFixed(1) + ' ' + (settings.units === 'metric' ? '°C' : '°F') + ', ' + weather.weather[0].description + ' in ' + locationName;
       });
     } catch(e) {
-      document.head.querySelector('title').textContent = mainWeather.temp + ' ' + (settings.units === 'metric' ? '°C' : '°F') + ', ' + weather.weather[0].description;
+      document.head.querySelector('title').textContent = mainWeather.temp.toFixed(1) + ' ' + (settings.units === 'metric' ? '°C' : '°F') + ', ' + weather.weather[0].description;
     }
     container.appendChild(weatherContent);
   });  
